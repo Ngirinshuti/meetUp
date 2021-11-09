@@ -1,0 +1,121 @@
+.chatGroupList {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chatGroup {
+  background-color: var(--secondary-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.chatGroupBtns {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 0.35rem;
+  justify-content: center;
+  /* background-color: var(--accent-color-opacity); */
+}
+
+.chatGroupUserName {
+  margin-bottom: 1rem;
+}
+
+.groupMembers {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.groupMember {
+  padding: 1rem;
+  background-color: var(--secondary-bg);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.groupMemberUserName {
+  font-weight: 500;
+}
+
+.groupMemberRole {
+  font-size: small;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.groupProfile {
+  display: flex;
+  background-color: var(--secondary-bg);
+  padding: 2rem 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  max-width: 400px;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.groupChatBtn {
+  /* margin-top: 1rem; */
+}
+
+.chatGroupsContainer {
+  margin-top: 2em;
+}
+
+.groupImg {
+  border: 5px solid var(--white);
+  display: inline;
+  border-radius: 50%;
+  height: 80px;
+  font-weight: 700;
+  font-size: 3rem;
+  padding: 1rem 1rem 1.5rem;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 2.5;
+  text-transform: uppercase;
+}
+
+.groupName {
+  font-weight: 700;
+  font-size: x-large;
+}
+
+.groupTitle {
+  margin: 0.25rem 0 0.75rem;
+  text-align: center;
+  color: var(--accent-bg);
+  font-size: xx-large;
+}
+
+.groupProfileBtns {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.groupProfileBtns form {
+  margin: 0;
+}
+
+.groupProfileBtns form button {
+  margin: 0;
+}
+
+.groupMemberBtn {
+  margin-top: 0.5rem;
+}

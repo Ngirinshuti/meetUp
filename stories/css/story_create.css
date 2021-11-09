@@ -1,0 +1,5 @@
+.storyCreateArea {
+    min-height: 200px;
+    font-size: 1.6rem!important;
+    resize: vertical;
+}
