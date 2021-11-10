@@ -74,22 +74,23 @@ class Post
         QR;
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$post, $image, $video,$p_id]);
+        $stmt->execute([$post, $image, $video, $p_id]);
         header("Location: ../post/home.php?msg=Post updated!");
     }
-public static function delete(
+    
+    public static function delete(
         int $p_id
-    ): Post {
+    ) {
         $sql = <<<QR
             DELETE FROM posts WHERE id=? or post_id=?
         QR;
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$p_id,$p_id]);
+        $stmt->execute([$p_id, $p_id]);
         header("Location: ../post/home.php?msg=Post deleted!");
     }
 
-public static function share(
+    public static function share(
         string $post,
         string $username,
         string $image = "",
@@ -102,7 +103,7 @@ public static function share(
         QR;
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$post, $username, $image, $video,$postId]);
+        $stmt->execute([$post, $username, $image, $video, $postId]);
         $post_id = $conn->lastInsertId();
         $post = Post::findOne($post_id);
 
@@ -142,7 +143,7 @@ public static function share(
     public static function getFriendsPosts(string $username): array
     {
 
-        
+
         $limit_string = (new Paginator())->getLimitString();
 
         $query = <<<QUERY
@@ -261,7 +262,7 @@ public static function share(
     public static function getUserPosts(string $username): array
     {
         $limit_string = (new Paginator())->getLimitString();
-$query = "SELECT * FROM posts WHERE username=? ORDER BY date DESC
+        $query = "SELECT * FROM posts WHERE username=? ORDER BY date DESC
             $limit_string";
         $stmt = DB::conn()->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
@@ -269,17 +270,15 @@ $query = "SELECT * FROM posts WHERE username=? ORDER BY date DESC
         $data = $stmt->fetchAll();
         return $data;
     }
-    public static function tagedFriends(string $username,$shareDate): array
+    public static function tagedFriends(string $username, $shareDate): array
     {
         $limit_string = (new Paginator())->getLimitString();
 
-$query = "SELECT distinct taged_friends,date FROM share WHERE (s_username=? or taged_friends=?) and date=?";
+        $query = "SELECT distinct taged_friends,date FROM share WHERE (s_username=? or taged_friends=?) and date=?";
         $stmt = DB::conn()->prepare($query);
-         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
-        $stmt->execute([$username,$username,$shareDate]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
+        $stmt->execute([$username, $username, $shareDate]);
         $datas = $stmt->fetchAll();
-return $datas;
-
-
+        return $datas;
     }
 }

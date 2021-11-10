@@ -72,9 +72,9 @@ $active_count = (new Friends($db_connection, $me->username))->activeFriendsCount
             <header class="chatHeader">
                 <a href="<?php echo getUrl("/chat/index.php") ?>" class="btn btn-icon"><i class="fa fa fa-arrow-circle-left"></i> (<?php echo $active_count; ?>)</a>
                 <div class="chatRoomUser">
-                    <?php if (file_exists(toDir("/images/{$user?->profile_pic}"))) : ?>
+                    <?php if ($user && file_exists(toDir("/images/{$user?->profile_pic}"))) : ?>
                         <div class="chatUserImg">
-                            <img src="<?php echo getUrl("/images/{$user?->profile_pic}") ?>" alt="<?php echo $user->username; ?>">
+                            <img src="<?php echo getUrl("/images/{$user?->profile_pic}") ?>" alt="<?php echo $user?->username; ?>">
                         </div>
                     <?php endif ?>
                     <h5 class="title"><?php echo $user?->username . $group?->name; ?></h5>
