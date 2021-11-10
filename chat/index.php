@@ -2,10 +2,13 @@
 
 require_once __DIR__ . "/../classes/init.php";
 require_once __DIR__ . "/Message.php";
+require_once __DIR__ . "/../classes/friend_system.php";
 
+$friend_obj = new Friends($db_connection, me()->username);
 $recent_messages = Message::getUserRecentMessages($me->username);
 
 // var_dump($recent_messages);
+$active_friends = $friend_obj->active_friends();
 
 ?>
 
@@ -30,6 +33,20 @@ $recent_messages = Message::getUserRecentMessages($me->username);
                 <h1 class="title">Recent chats</h1>
                 <a href="<?php echo getUrl("/chat/chat_friends.php") ?>" class="btn">Friends</a>
             </header>
+            <div class="activeFriendsContainer">
+                <div class="activeFriendsList">
+                    <?php foreach ($active_friends as $friend) : ?>
+                        <div class="activeFriend">
+                            <div class="activeFriend chatUserImg">
+                                <img src="<?php echo getUrl("/images/{$friend->profile_pic}") ?>" alt="p">
+                            </div>
+                            <div class="activeFriendUserName">
+                                <?php echo $friend->username; ?>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
             <div class="recentChatContainer">
                 <?php if (empty($recent_messages)) : ?>
                     <p style="text-align: center;">You have no recent chat</p>
@@ -43,7 +60,7 @@ $recent_messages = Message::getUserRecentMessages($me->username);
                             <div class="recentChatBody">
                                 <a href="#" class="recentChatUserName"><?php echo "{$msg->from} - {$msg->to}"; ?></a>
                                 <div class="recentChatMessage">
-                                    <?php echo substr($msg->body, 0, 40) . (strlen($msg->body) > 40? "..." : ""); ?>
+                                    <?php echo substr($msg->body, 0, 40) . (strlen($msg->body) > 40 ? "..." : ""); ?>
                                 </div>
                                 <div class="recentChatTime"><?php echo $date_obj->dateDiffStr($msg->created_at); ?></div>
                             </div>

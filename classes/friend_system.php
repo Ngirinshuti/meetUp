@@ -25,25 +25,17 @@ class Friends
         }
     }
 
-    function active_friends()
+    function active_friends():array
     {
-        if ($this->get_all_friends($this->me, false) == 0) {
-            return 0;
-            exit;
-        }
-        $active = [];
-        $friends = $this->get_all_friends($this->me, true);
+        $query = "SELECT `users`.* FROM friends
+        JOIN users ON IF(friends.partener = :me, friends.friend, friends.partener) = users.username
+        WHERE :me IN (friends.partener, friends.friend) AND `users`.`status` = 'online'
+        ORDER BY `users`.`last_seen` DESC";
+        $stmt = DB::conn()->prepare($query);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
+        $stmt->execute([":me" => $this->me]);
 
-        foreach ($friends as $friend) {
-            if ($friend->status == "online") {
-                array_push($active, $friend);
-            }
-        }
-        if (count($active) > 0) {
-            return $active;
-        } else {
-            return count($active);
-        }
+        return $stmt->fetchAll();
     }
 
     public function getFriendsSorted(): array
