@@ -111,14 +111,8 @@ $post_paginator->updateHasMore(count($posts));
             </div>
 
         </div>
-<div style="text-align:center;color: green;font-size: 22px;">
-    <?php if (isset($_GET['message'])) {
-        if ($_GET['message']=='msg') {
-            echo "Post shared";
-        }
-    }  ?>
-</div>
-  
+        
+  <?php echo $msg(); ?>
         <!-- user posts -->
         <?php require_once __DIR__ . "/../post/print_posts.php"; ?>
         <!-- end user posts -->

@@ -16,9 +16,8 @@ $DB_PASSWORD = "";
 // email
 $MAIL_SENDER = "ishimwedeveloper@gmail.com";
 
-
 // urls
-$ROOT_URL = "/new_meet_up";
+$ROOT_URL = "/new";
 $LOGIN_URL = $ROOT_URL . "/auth/index.php";
 
 // security
