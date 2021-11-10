@@ -5,8 +5,8 @@
 
     <?php foreach ($posts as $post) : ?>
         <div class="userpost" style="border: 0px" id="post<?php echo $post->id; ?>">
+            <?php if ($post->post_id != 0) :?>
             <div class="sharedPostHeader">
-                <?php if ($post->post_id != 0) :?>
                     <p><a href="<?php echo getUrl("/friends/profile.php?user={$post->username}") ?>" class="postUser" style="float: left;">
                             <div class="userProfile">
                                 <img src="../images/<?php echo $post->owner()->profile_pic; ?>" />
@@ -17,8 +17,8 @@
                     <?php if (!empty($post->post)) : ?>
                     <div class="sharedPostText"><?php echo $post->post; ?></div>
                     <?php endif ?>
-                    <?php endif ?>
-            </div>
+                </div>
+                <?php endif ?>
 
 
             <div class="postHeader">
