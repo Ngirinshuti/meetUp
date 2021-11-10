@@ -121,7 +121,7 @@ class Auth
             $user->setProperty('verified', 1);
             return true;
         } else {
-            throw new AuthException("Provided verification code is invalid!");
+            throw new AuthException("Verification code is invalid!");
         }
     }
 

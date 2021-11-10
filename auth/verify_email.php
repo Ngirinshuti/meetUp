@@ -12,9 +12,8 @@ list($errors, $data, $errorClass, $mainError, $msg, $csrf) = $validator->helpers
 $email = Session::get('verify_email', null);
 
 if ($email == null) {
-    Session::set("message", "Invalid verification email");
-    header("Location: " . getUrl("/auth/index.php"));
-    exit();
+    $validator->setMainError("Invalid verification email")
+        ->redirect(getUrl("/auth/index.php"));
 }
 
 // resend email if necessary
@@ -22,7 +21,7 @@ if (isset($_GET['resend']) && intval($_GET['resend']) != intval($_SESSION['resen
     $_SESSION['resend'] = intval($_GET['resend']);
 
     Auth::sendVerficationCode(User::findOne(email: $email));
-    $validator->setSuccessMsg("Email sent!");
+    $validator->setSuccessMsg("Email sent!")->redirect(current_url_full());
 }
 
 if (!isset($_GET['resend'])) {
@@ -45,11 +44,11 @@ $validator->methodPost(
         if ($validator->valid) {
             try {
                 if (Auth::verifyEmail(...$validator->valid_data)) {
-                    header("Location: ./index.php?msg=Email was successfully verfied (:");
-                    exit;
+                    $validator->setSuccessMsg("Email was successfully verified");
+                    $validator->redirect(getUrl("/auth/index.php"));
                 }
             } catch (AuthException $e) {
-                $validator->setMainError($e->getMessage());
+                $validator->setMainError($e->getMessage())->redirect(current_url_full());
             }
         }
     }
@@ -65,7 +64,6 @@ $validator->methodPost(
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Verify</title>
 </head>
 

@@ -15,7 +15,7 @@ $validator->methodPost(
                 "fname" => ["not_empty" => true],
                 "lname" => ["not_empty" => true],
                 "username" => ["not_empty" => true],
-                "email" => ["not_empty" => true, "email"],
+                "email" => ["not_empty" => true, "email", "unique" => ['users', 'email']],
                 "password" => ["not_empty" => true, 'should_match' => 'confirm_password'],
             ]
         )->addData($_POST)->validate();
@@ -24,17 +24,18 @@ $validator->methodPost(
             try {
                 $user = Auth::signup(...$validator->valid_data);
                 if (!$user) {
-                    return new AuthException("Something, went wrong! try again later ):");
+                    return new AuthException("Something, went wrong! try again later :(");
                 }
 
-                $validator->setSuccessMsg("Account was created (:");
-
+                
                 if (Auth::sendVerficationCode($user)) {
                     $_SESSION['verify_email'] = $user->email;
-                    header("Location: ./verify_email.php");
+                    $validator->setSuccessMsg("Account was created! Verification code sent, check email.");
+                    $validator->redirect(getUrl("/auth/verify_email.php"));
                 }
+
             } catch (AuthException $e) {
-                $validator->setMainError($e->getMessage());
+                $validator->setMainError($e->getMessage())->redirect(current_url_full());
             }
         }
     }
@@ -59,7 +60,7 @@ $validator->methodPost(
 
         <form action="" method="post" class="mainForm">
             <div class="formHeader">
-                <a href="#!" class="formBrand">MeetUp</a>
+                <a href="#!" class="formBrand">ViaChat</a>
                 <h2>Signup</h2>
             </div>
             <?php echo $msg(); ?>

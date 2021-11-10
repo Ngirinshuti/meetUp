@@ -48,6 +48,8 @@ function getSearchResults(search) {
                         const nameEl = resultEl.querySelector(
                             "[data-nav-search-result-username]"
                         );
+                        console.log(user.profile_pic)
+                        resultEl.querySelector('img').src =  "../images/" + user.profile_pic;
                         resultEl.href += "?user=" + user.username;
                         nameEl.textContent = `${user.username} - ${user.fname} ${user.lname} ${user.email}`;
                         return resultEl;
