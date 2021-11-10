@@ -46,8 +46,7 @@
 
             <div class="postHeader">
 
-                <?php if ($post->post_id !== null) {
-                    $result = Post::findOne($post->post_id);
+                <?php if ($post->post_id !== null && ( $result = Post::findOne($post->post_id))) {
                 ?>
                     <a href="<?php echo getUrl("/friends/profile.php?user={$result->username}") ?>" class="postUser">
                         <div class="userProfile">
