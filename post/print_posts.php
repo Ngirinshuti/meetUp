@@ -5,25 +5,48 @@
 
     <?php foreach ($posts as $post) : ?>
         <div class="userpost" style="border: 0px" id="post<?php echo $post->id; ?>">
-            <?php if ($post->post_id != 0) :?>
-            <div class="sharedPostHeader">
-                    <p><a href="<?php echo getUrl("/friends/profile.php?user={$post->username}") ?>" class="postUser" style="float: left;">
+            <?php if ($post->post_id !== null) : ?>
+                <div class="sharedPostHeader">
+                    <p>
+                        <a href="<?php echo getUrl("/friends/profile.php?user={$post->username}") ?>" class="postUser" style="float: left;">
                             <div class="userProfile">
                                 <img src="../images/<?php echo $post->owner()->profile_pic; ?>" />
                             </div>
                             <div class="userName"><?php echo $post->username; ?> </div>
-                        </a><i class="shareText">shared a post.</i></p>
+                        </a><i class="shareText">shared a post.</i>
+                    </p>
                     </a>
                     <?php if (!empty($post->post)) : ?>
-                    <div class="sharedPostText"><?php echo $post->post; ?></div>
+                        <div class="sharedPostText"><?php echo $post->post; ?></div>
                     <?php endif ?>
+                    <?php if ($post->username === $user->username) : ?>
+                        <div class="postOptions">
+                            <label class="postOptionsLabel">
+                                <i class="fa fa-ellipsis-v fa-2x"></i>
+                            </label>
+                            <ul class="postOptionsContainer">
+                                <li class="postOption">
+                                    <a class="btn postOptionLink" href="<?php echo getUrl("/post/editPost.php?id={$post->id}") ?>" edit-option >
+                                        <i class="fa fa-edit"></i>
+                                        Edit Post
+                                    </a>
+                                </li>
+                                <li class="postOption">
+                                    <a class="btn danger postOptionLink" href="<?php echo getUrl("/post/deletePost.php?id={$post->id}") ?>" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
+                                        <i class="fa fa-trash-o"></i>
+                                        Delete Post
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    <?php endif  ?>
                 </div>
-                <?php endif ?>
+            <?php endif ?>
 
 
             <div class="postHeader">
 
-                <?php if ($post->post_id != 0) {
+                <?php if ($post->post_id !== null) {
                     $result = Post::findOne($post->post_id);
                 ?>
                     <a href="<?php echo getUrl("/friends/profile.php?user={$result->username}") ?>" class="postUser">
@@ -31,38 +54,46 @@
                             <img src="../images/<?php echo $result->owner()->profile_pic; ?>" />
                         </div>
                         <div class="userName"><?php echo $result->username; ?></div>
-                    <?php
+                    </a>
+                <?php
                 } else {
-                    ?>
-                        <a href="<?php echo getUrl("/friends/profile.php?user={$post->username}") ?>" class="postUser">
-                            <div class="userProfile">
-                                <img src="../images/<?php echo $post->owner()->profile_pic; ?>" />
-                            </div>
-                            <div class="userName"><?php echo $post->username; ?></div>
-                        <?php
-                    }
-
-                        ?>
-
-
-                        </a>
-                        <div class="postTime">
-                            <?php echo $date_obj->dateDiffStr($post->date); ?>
+                ?>
+                    <a href="<?php echo getUrl("/friends/profile.php?user={$post->username}") ?>" class="postUser">
+                        <div class="userProfile">
+                            <img src="../images/<?php echo $post->owner()->profile_pic; ?>" />
                         </div>
-                        <?php if ($post->username == $user->username) : ?>
-                            <div class="moreOptions" more-options style="">
-                                <label style="color: green;" title="More options" options><i class="fa fa-ellipsis-v fa-2x"></i></label>
-                                <div style="position: relative;" id="show" class="profileEditModal hide" options-div>
-                                    <div style="position:absolute;background-color: whitesmoke;max-width: max-content;margin-left: -2.5cm;">
-                                        <a href="<?php echo getUrl("/post/editPost.php?id={$post->id}") ?>" edit-option onclick="return confirm('Are you sure you want to edit this post?')"> Edit Post<i class="fa fa-edit"></i></a>
-                                        <a href="<?php echo getUrl("/post/deletePost.php?id={$post->id}") ?>" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>Delete Post <i class="fa fa-trash-o " style="color:red"></i></a>
-                                    </div>
-                                </div>
-                            </div> 
-                        <?php endif  ?>
+                        <div class="userName"><?php echo $post->username; ?></div>
+                    </a>
+                <?php } ?>
+
+
+                <div class="postTime">
+                    <?php echo $date_obj->dateDiffStr($post->date); ?>
+                </div>
+                <?php if ($post->post_id === null && $post->username === $user->username) : ?>
+                    <div class="postOptions">
+                        <label class="postOptionsLabel">
+                            <i class="fa fa-ellipsis-v fa-2x"></i>
+                        </label>
+                        <ul class="postOptionsContainer">
+                            <li class="postOption">
+                                <a class="btn postOptionLink" href="<?php echo getUrl("/post/editPost.php?id={$post->id}") ?>" edit-option>
+                                    <i class="fa fa-edit"></i>
+                                    Edit Post
+                                </a>
+                            </li>
+                            <li class="postOption">
+                                <a class="btn danger postOptionLink" href="<?php echo getUrl("/post/deletePost.php?id={$post->id}") ?>" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
+                                    <i class="fa fa-trash-o"></i>
+                                    Delete Post
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php endif  ?>
             </div>
             <div class="postBody">
-                <?php if ($post->post_id != 0) {
+                <?php if ($post->post_id !== null) {
                     $result = Post::findOne($post->post_id);
                 ?>
                     <?php if ($result->post) : ?>
@@ -74,7 +105,7 @@
                         <img class="postImg" src="<?php echo getUrl("/post/images/{$result->image}"); ?>" />
                     <?php endif; ?>
                     <?php if ($result->video) : ?>
-                        <video class="postVideo" src="<?php getUrl("/post/videos/{$result->video}"); ?>" controls>
+                        <video class="postVideo" src="<?php echo getUrl("/post/videos/{$result->video}"); ?>" controls>
                         <?php endif; ?>
                     <?php
                 } else {
@@ -89,13 +120,13 @@
                             <img class="postImg" src="<?php echo getUrl("/post/images/{$post->image}"); ?>" />
                         <?php endif; ?>
                         <?php if ($post->video) : ?>
-                            <video class="postVideo" src="<?php getUrl("/post/videos/{$post->video}"); ?>" controls>
+                            <video class="postVideo" src="<?php echo getUrl("/post/videos/{$post->video}"); ?>" controls>
                         <?php endif;
                     } ?>
             </div>
             <div class="postFooter">
                 <form action="<?php echo getUrl("/post/like_post.php") ?>" method="post">
-                <input type="hidden" name="back_url" value="<?php echo current_url_full() ?>">
+                    <input type="hidden" name="back_url" value="<?php echo current_url_full() ?>">
                     <input type="hidden" name="post_id" value="<?php echo $post->id; ?>">
                     <input type="hidden" name="username" value="<?php echo $me->username; ?>">
                     <button class="postLike likeBtn <?php echo boolval($post->likedBy($me->username)) ? "liked" : ""; ?> ">

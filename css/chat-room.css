@@ -180,3 +180,9 @@
     right: 0;
 }
 
+
+
+.chatRoomUser {
+    display: flex;
+    align-items: center;
+}

@@ -20,9 +20,9 @@ if ($post->likedBy($me->username)) {
 $back_url = isset($_REQUEST['back_url']) ? $_REQUEST['back_url'] : null;
 
 if ($back_url === null) {
-    header("Location: ./home.php#post".$_POST['post_id']);
+    header("Location: ./home.php");
 }
 
-header("Location: $back_url#post".$_POST['post_id']);
+header("Location: $back_url");
 
 

@@ -1,39 +1,99 @@
 @import url("./comments.css");
 
 .postForm.formContainer {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   background: var(--secondary-bg);
   width: 100%;
   max-width: unset;
   display: flex;
-  flex-direction: column;
+  flex-direction: column!important;
+  align-items: flex-end;
+  justify-content: flex-start;
   gap: 0.5rem;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: .5rem;
+  margin: 0.5rem auto;
+  max-width: 600px;
+  position: relative;
 }
+
+.choosenFileContainer {
+  height: 200px;
+  width: 400px;
+  /* background-color: var(--accent-bg-opacity); */
+  border-radius: .5rem;
+  padding: .5rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.choosenFileContainer > :is(img, video) {
+  border-radius: .5rem;
+  height: 100%;
+  object-fit: cover;
+}
+
 .postForm.formContainer label {
   color: white;
+  font-weight: 700;
+  padding-left: 0.5rem;
+}
+.postForm.formContainer .postFormFiles {
+  background-color: var(--main-bg);
 }
 
-.postForm.formContainer .desc {
-  flex: 0.7;
-}
-.postForm.formContainer button {
-  flex: 0.4;
-  height: 8rem;
-  align-self: flex-end;
-  margin-bottom: 0.5rem;
+.postForm.formContainer .mainInput {
+  width: 100%;
 }
 
-.postForm.formContainer .filesWrapper {
-  flex: 0.5;
+.postForm.formContainer input[type='file'] {
+  display: none;
 }
-
 .postForm.formContainer textarea {
-  height: 8rem;
-  resize: none;
-  background-color: white;
+  /* min-height: 7rem; */
+  width: 100%;
+  resize: vertical;
 }
 
+.postFormFileIcons {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: xx-large;
+  /* position: absolute; */
+  bottom: 0;
+}
+
+button.fileIcon {
+  background-color: var(--accent-color-opacity);
+  display: inline-block;
+}
+
+.postFormFooter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.choosenFileContainer.hide {
+  display: none;
+}
+
+.postForm.formContainer textarea + .emoji-wysiwyg-editor {
+  max-height: 40vh!important;
+  height: unset !important;
+  min-height: 76px!important;
+}
+
+
+/* form ends here */
+
+
+
+/* posts */
 .userpost {
   display: flex;
   justify-content: space-around;
@@ -42,7 +102,6 @@
   max-width: 500px;
   border-radius: 10px;
   flex-direction: column;
-  overflow: hidden;
   border: 1px solid #ccc;
   padding: 0.25rem;
   box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.5);
@@ -56,6 +115,7 @@
   border-radius: 10px;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .postUser {
   display: flex;
@@ -91,7 +151,6 @@
 .postImg,
 .postVideo {
   width: 100%;
-  /* max-height: 100vh; */
   object-fit: cover;
 }
 
@@ -240,10 +299,10 @@
   flex: 6;
 }
 
-.inputContainer textarea + .emoji-wysiwyg-editor {
-  max-height: unset;
+.postShareEditor textarea + .emoji-wysiwyg-editor {
+  max-height: 40vh!important;
   height: unset !important;
-  min-height: 76px;
+  min-height: 76px!important;
 }
 
 .postShareForm.mainForm button {
@@ -255,3 +314,71 @@
   display: inline-block;
   width: auto;
 }
+
+/* post options */
+
+.sharedPostHeader,
+.postHeader {
+  position: relative !important;
+  justify-content: flex-start !important;
+}
+
+.postTime {
+  margin: 0.5rem;
+}
+
+.postOptions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.15rem 0.25rem;
+}
+
+.postOptions .postOptionsLabel {
+  padding: 0.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  font-size: small;
+  justify-content: center;
+  align-items: center;
+}
+
+.postOptionsLabel:hover {
+  background-color: var(--secondary-bg);
+}
+
+.postOptions:hover > .postOptionsContainer {
+  display: flex!important;
+}
+
+
+.postOptionsContainer {
+  position: absolute;
+  background-color: var(--main-bg);
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
+  top: 60%;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  border-radius: .5rem;
+  padding: 0.5rem;
+  min-width: max-content;
+  align-items: flex-start;
+  justify-content: center;
+  display: none;
+}
+
+.postOption {
+  width: 100%;
+}
+
+
+.postOptionLink {
+  background-color: var(--accent-bg-opacity);
+  /* display: block; */
+  width: 100%;
+  text-align: center;
+} 

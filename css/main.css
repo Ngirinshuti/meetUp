@@ -172,18 +172,18 @@ nav ul.subNav a {
 
 [data-tooltip] {
   position: relative;
+  cursor: pointer;
 }
 
 [data-tooltip]:hover::after {
   transform: none;
   visibility: visible;
-  transform: translateY(3px);
+  transform: translateY(3px) translateX(-50%);
 }
 
 [data-tooltip]::after {
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(0);
   position: absolute;
   content: attr(data-tooltip);
   top: 110%;
@@ -193,9 +193,11 @@ nav ul.subNav a {
   padding: 0.35rem 0.75rem;
   z-index: 2;
   border-radius: 10px;
-  box-shadow: 4px 4px 10px rgba(20, 20, 20, 0.3);
+  box-shadow: 0 0 5px 3px rgba(20, 20, 20, 0.3);
   transition: transform 0.2s ease-in;
   font-size: small;
+  left: 50%;
+  transform: translateY(0) translateX(-50%);
 }
 
 nav li a.active {
@@ -426,4 +428,9 @@ button::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+
+.moreOptions {
+  position: relative!important;
 }

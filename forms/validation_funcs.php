@@ -162,7 +162,8 @@ function shouldMatch(string $field_name, string $match_field_name, array $arr)
     );
 }
 
-function nullable(string $field_name, string $rule_name, array $data) {
+function nullable(string $field_name, string $rule_name, array $data)
+{
     // 
 }
 
@@ -179,7 +180,7 @@ function exists(string $field_name, string $query_data, array $data)
     $stmt->execute([$col_value]);
     $exists = $stmt->rowCount() > 0;
 
-    
+
     throwError(!$exists, "$field_name doesn't exist in $table");
 }
 
@@ -204,7 +205,6 @@ function unique(string $field_name, array $query_data, array $data)
     $exists = $stmt->rowCount() > 0;
 
     throwError($exists, "$field_name already exist in $table");
-
 }
 
 /**
@@ -252,7 +252,7 @@ function excludeIf(string $field_name, array $field_data, array &$data)
 {
     $key = array_key_first($field_data);
     $matched = isset($data[$key]) && $data[$key] === $field_data[$key];
-    
+
     if ($matched) {
         unset($data[$field_name]);
     }
@@ -263,7 +263,7 @@ function includeIf(string $field_name, array $field_data, array &$data)
 {
     $key = array_key_first($field_data);
     $matched = isset($data[$key]) && $data[$key] === $field_data[$key];
-    
+
     if (!$matched) {
         unset($data[$field_name]);
     }
@@ -301,35 +301,54 @@ function validDate(string $field_name, array $rule_name, array $data)
 
 
 
-function requiredWithout(string $field_name, string|array $fields, array &$data)
+function requiredWithout(string $field_name, array $fields, array &$data)
 {
-    $none_is_set = true;
-    $field_available = isset($data[$field_name]) && !empty($data[$field_name]);
-
-    if ($field_available) {
+    if ((isset($data[$field_name]['name']) && !empty($data[$field_name]['name'])) ||
+        !empty($data[$field_name])
+    ) {
         return;
     }
-    
-    if (is_string($fields)) {
-        $fields = $fields !== "*" ? [$fields] : $data;
-    }
 
-    if (is_array($fields)) {
-        foreach ($fields as $key => $value) {
-            if (isset($data[$value]) && !empty($data[$value])) {
-                if (isset($data[$value]['name'])){
-                    $none_is_set = empty($data[$value]['name']);
-                    break;
-                }
+    $failed = true;
 
-                $none_is_set = false;
-                break;
-            }
+    foreach ($fields as $field) {
+        if (empty($data[$field]) || (isset($data[$field]['name']) && empty($data[$field]['name']))) {
+            continue;
         }
+
+        $failed = false;
+        break;
     }
 
-    throwError($none_is_set, "At least $field_name should be provided");
+    throw new FieldEmpty($failed, "At least $field_name should be provided");
 }
+
+
+function excludeIfExists(string $field_name, array $fields, array &$data)
+{
+    if (
+        (isset($data[$field_name]['name']) && empty($data[$field_name]['name'])) ||
+        empty($data[$field_name])
+    ) {
+        return;
+    }
+
+    $failed = false;
+
+    foreach ($fields as $field) {
+        if (empty($data[$field]) || (isset($data[$field]['name']) && empty($data[$field]['name']))) {
+            continue;
+        }
+
+        $failed = true;
+        break;
+    }
+
+    $field_names = implode(',', $fields);
+
+    throw new FieldEmpty($failed, "$field_name can't go with $field_names");
+}
+
 
 /**
  * Checks if a hash matches

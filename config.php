@@ -17,7 +17,7 @@ $DB_PASSWORD = "";
 $MAIL_SENDER = "ishimwedeveloper@gmail.com";
 
 // urls
-$ROOT_URL = "/new";
+$ROOT_URL = "";
 $LOGIN_URL = $ROOT_URL . "/auth/index.php";
 
 // security

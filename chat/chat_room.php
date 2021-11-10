@@ -12,7 +12,7 @@ $group = isset($_GET['group']) ? Group::findOne($_GET['group']) : null;
 
 if ($group && !$group->isMember(me()->username)) {
     Session::set("forms.errors.msg", "You are not a member of '{$group->name}'");
-    header("Location: " . getUrl("/chat/chat_groups.php?group=".$group->id));
+    header("Location: " . getUrl("/chat/chat_groups.php?group=" . $group->id));
     exit;
 }
 
@@ -70,10 +70,17 @@ $active_count = (new Friends($db_connection, $me->username))->activeFriendsCount
         <?php require_once __DIR__ . '/../menu/menu.php'; ?>
         <div class="chatContainer">
             <header class="chatHeader">
-                <a href="<?php echo getUrl("/chat/index.php") ?>" class="btn btn-icon"><i class="fa fa fa-arrow-circle-left"></i></a>
-                <h5 class="title"><?php echo $user?->username . $group?->name; ?></h5>
+                <a href="<?php echo getUrl("/chat/index.php") ?>" class="btn btn-icon"><i class="fa fa fa-arrow-circle-left"></i> (<?php echo $active_count; ?>)</a>
+                <div class="chatRoomUser">
+                    <?php if (file_exists(toDir("/images/{$user?->profile_pic}"))) : ?>
+                        <div class="chatUserImg">
+                            <img src="<?php echo getUrl("/images/{$user?->profile_pic}") ?>" alt="<?php echo $user->username; ?>">
+                        </div>
+                    <?php endif ?>
+                    <h5 class="title"><?php echo $user?->username . $group?->name; ?></h5>
+                </div>
                 <div class="headerBtns">
-                    <a href="<?php echo getUrl("/chat/chat_friends.php"); ?>" class="btn">Active (<?php echo $active_count; ?>)</a>
+                    <a href="<?php echo getUrl("/chat/chat_friends.php"); ?>" class="btn">Friends</a>
                 </div>
             </header>
             <div class="chatRoomContainer">
@@ -82,6 +89,9 @@ $active_count = (new Friends($db_connection, $me->username))->activeFriendsCount
                 <?php endif; ?>
                 <div class="chatMessageList">
                     <?php foreach ($messages as $i => $msg) : ?>
+                        <!-- mark message as read -->
+                        <?php if ($msg->sender !== me()->username) {$msg = $msg->read();} ?>
+                        <!-- end mark message as read -->
                         <?php if ($i === 0 || !shouldCombine($i - 1)) : ?>
                             <div class="chatMessageGroup <?php echo $msg->sender === $me->username ? "sent" : "recieved"; ?>">
                                 <div class="chatMessageUser">
@@ -97,7 +107,7 @@ $active_count = (new Friends($db_connection, $me->username))->activeFriendsCount
                                 <div class="chatMessageInfo">
                                     <div class="chatMessageTime"><?php echo $date_obj->dateDiffStr($msg->created_at); ?></div>
                                     <div class="chatStatus seen">
-                                        <?php echo $msg->status; ?>
+                                        <?php echo $msg->sender === me()->username ? $msg->status : ""; ?>
                                     </div>
                                 </div>
                             </div>

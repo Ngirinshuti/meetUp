@@ -199,14 +199,17 @@ class Message  implements MessageInterface
         return $stmt->fetch();
     }
 
-    public function setStatus(int $id, string $status): Message|bool
+    function read():Message|bool {
+        return $this->setStatus('read');
+    }
+
+    public function setStatus(string $status): Message|bool
     {
         $query = "UPDATE `messages` SET `status` = ? WHERE `id` = ?";
 
-
         $stmt = DB::conn()->prepare($query);
-        $stmt->execute([$status, $id]);
-        return Message::findOne($id);
+        $stmt->execute([$status, $this->id]);
+        return Message::findOne($this->id);
     }
 
     /**

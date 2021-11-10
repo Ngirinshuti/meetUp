@@ -64,12 +64,11 @@ interface MessageInterface
     /**
      * Change message status
      *
-     * @param integer $id
      * @param string $status
      * 
      * @return Message|boolean
      */
-    public function setStatus(int $id, string $status): Message|bool;
+    public function setStatus(string $status): Message|bool;
 
 
     /**

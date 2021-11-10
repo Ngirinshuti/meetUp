@@ -29,25 +29,29 @@ $active_friends = $friend_obj->active_friends();
     <div class="container">
         <?php require_once __DIR__ . "/../menu/menu.php"; ?>
         <div class="chatContainer">
-            <header class="chatHeader">
-                <h1 class="title">Recent chats</h1>
-                <a href="<?php echo getUrl("/chat/chat_friends.php") ?>" class="btn">Friends</a>
-            </header>
             <div class="activeFriendsContainer">
+                <header class="chatHeader">
+                    <h4 class="title">Active friends</h4>
+                    <a href="<?php echo getUrl("/chat/chat_friends.php") ?>" class="btn">Friends</a>
+                </header>
                 <div class="activeFriendsList">
                     <?php foreach ($active_friends as $friend) : ?>
-                        <div class="activeFriend">
-                            <div class="activeFriend chatUserImg">
+                        <a href="<?php echo getUrl("/chat/chat_room.php?user={$friend->username}") ?>" class="activeFriend">
+                            <div class="activeFriendImg chatUserImg">
                                 <img src="<?php echo getUrl("/images/{$friend->profile_pic}") ?>" alt="p">
                             </div>
                             <div class="activeFriendUserName">
                                 <?php echo $friend->username; ?>
                             </div>
-                        </div>
+                        </a>
                     <?php endforeach ?>
                 </div>
             </div>
             <div class="recentChatContainer">
+                <header class="chatHeader">
+                    <h3 class="title">Recent chats</h3>
+                    <a href="<?php echo getUrl("/chat/chat_friends.php") ?>" class="btn">Friends</a>
+                </header>
                 <?php if (empty($recent_messages)) : ?>
                     <p style="text-align: center;">You have no recent chat</p>
                 <?php endif; ?>

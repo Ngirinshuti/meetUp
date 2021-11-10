@@ -19,6 +19,9 @@ $messages = Message::checkNewMesssages(
     $me->username, $_GET['last_message_date'], $sender ?: null, $group_id ?: null
 );
 
+foreach ($messages as $msg) {
+    $msg->read();
+}
 
 sendJson(fn () => $messages);
 
