@@ -60,8 +60,7 @@ list($errors, $data, $errorClass, $mainError, $msg, $csrf) = $validator->helpers
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
-    <title>Profile</title>
+    <title></title>
 </head>
 
 <body>

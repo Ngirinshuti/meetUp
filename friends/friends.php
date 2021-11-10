@@ -9,24 +9,19 @@ $friends_obj = new Friends($db_connection, $me->username);
 $validator = new Validator();
 
 $validator->methodPost(function (Validator $validator) use ($friends_obj) {
-    try {
+    $valid = $validator->addRules([
+        'action' => [
+            'required' => true,
+            "not_empty" => true,
+            "in" => ['cancel', 'send', 'unfriend', 'confirm', 'deny']
+        ],
+        'friend' => ['required' => true, "not_empty" => true],
+    ])->addData($_POST)->validate();
 
-        $valid = $validator->addRules([
-            'action' => [
-                'required' => true,
-                "not_empty" => true,
-                "in" => ['cancel', 'send', 'unfriend', 'confirm', 'deny']
-            ],
-            'friend' => ['required' => true, "not_empty" => true],
-        ])->addData($_POST)->validate();
-
-        if ($valid) {
-            handleFriendsRequest($friends_obj, $success);
-            $validator->setSuccessMsg($success);
-        }
-    } catch (FormError $e) {
-        $validator->setMainError($e->getMessage());
-    }
+    $validator->isValid(function (Validator $validator) use ($friends_obj) {
+        handleFriendsRequest($friends_obj, $success);
+        $validator->setSuccessMsg($success)->redirect((current_url_full()));
+    });
 });
 
 list($errors, $data, $errorClass, $mainError, $mainMsg, $csrf) = $validator->helpers();
@@ -74,7 +69,6 @@ function activeTab($tab)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/friends.css">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Friends</title>
 </head>
 
@@ -105,8 +99,8 @@ function activeTab($tab)
                             <img src="<?php echo getUrl("/images/{$friend->profile_pic}"); ?>" alt="friend">
                         </div>
                         <form method="POST">
-                        <div class="friendsBtns">
-                            <a href="<?php echo getUrl("/friends/profile.php?user={$friend->username}") ?>" class="friendName"><?php echo $friend->username; ?></a>
+                            <div class="friendsBtns">
+                                <a href="#" class="friendName"><?php echo $friend->username; ?></a>
                                 <input type="hidden" name="friend" value="<?php echo $friend->username; ?>">
                                 <?php echo $csrf(); ?>
                                 <?php switch ($view_type):

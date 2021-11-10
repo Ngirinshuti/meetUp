@@ -4,7 +4,7 @@
  * Story php file
  *
  * @category Social_App
- * @package  MeetUp
+ * @package  ViaChat
  * @author   ISHIMWE <ishimwedeveloper@gmail.com>
  * @license  MIT url
  * @link     https://meet_up.com
@@ -18,7 +18,7 @@ require_once __DIR__ . "/../classes/DB.php";
  * Help interacting with stories
  *
  * @category Social_App
- * @package  MeetUp
+ * @package  ViaChat
  * @author   ISHIMWE <ishimwedeveloper@gmail.com>
  * @license  MIT url
  * @link     https://meet_up.com

@@ -4,7 +4,7 @@
  * Post php file
  *
  * @category Social_App
- * @package  MeetUp
+ * @package  ViaChat
  * @author   ISHIMWE <ishimwedeveloper@gmail.com>
  * @license  MIT url
  * @link     https://meet_up.com
@@ -19,7 +19,7 @@ require_once __DIR__ . "/../paginator/Paginator.php";
  * Post php class
  *
  * @category Social_App
- * @package  MeetUp
+ * @package  ViaChat
  * @author   ISHIMWE <ishimwedeveloper@gmail.com>
  * @license  MIT url
  * @link     https://meet_up.com
@@ -63,53 +63,6 @@ class Post
 
         return $post;
     }
-    public static function update(
-        string $post,
-        string $image = "",
-        string $video = "",
-        int $p_id
-    ): Post {
-        $sql = <<<QR
-            UPDATE posts SET post=?, image=?, video=? WHERE id=? 
-        QR;
-        $conn = DB::conn();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$post, $image, $video,$p_id]);
-        header("Location: ../post/home.php?msg=Post updated!");
-    }
-public static function delete(
-        int $p_id
-    ): Post {
-        $sql = <<<QR
-            DELETE FROM posts WHERE id=? or post_id=?
-        QR;
-        $conn = DB::conn();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$p_id,$p_id]);
-        header("Location: ../post/home.php?msg=Post deleted!");
-    }
-
-public static function share(
-        string $post,
-        string $username,
-        string $image = "",
-        string $video = "",
-        int $postId
-    ): Post {
-        $sql = <<<QR
-            INSERT INTO `posts` (`post`, `username`, `image`, `video`,`post_id`) 
-            VALUES (?, ?, ?, ?,?)
-        QR;
-        $conn = DB::conn();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$post, $username, $image, $video,$postId]);
-        $post_id = $conn->lastInsertId();
-        $post = Post::findOne($post_id);
-
-        return $post;
-    }
-
-
 
     /**
      * Get one post from database
@@ -261,25 +214,12 @@ public static function share(
     public static function getUserPosts(string $username): array
     {
         $limit_string = (new Paginator())->getLimitString();
-$query = "SELECT * FROM posts WHERE username=? ORDER BY date DESC
-            $limit_string";
+
+        $query = "SELECT * FROM `posts` WHERE `username` = ? ORDER BY `date` DESC $limit_string";
         $stmt = DB::conn()->prepare($query);
         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
         $stmt->execute([$username]);
         $data = $stmt->fetchAll();
         return $data;
-    }
-    public static function tagedFriends(string $username,$shareDate): array
-    {
-        $limit_string = (new Paginator())->getLimitString();
-
-$query = "SELECT distinct taged_friends,date FROM share WHERE (s_username=? or taged_friends=?) and date=?";
-        $stmt = DB::conn()->prepare($query);
-         $stmt->setFetchMode(PDO::FETCH_CLASS, __CLASS__);
-        $stmt->execute([$username,$username,$shareDate]);
-        $datas = $stmt->fetchAll();
-return $datas;
-
-
     }
 }

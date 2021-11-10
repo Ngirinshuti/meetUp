@@ -53,12 +53,9 @@ $post_paginator->updateHasMore(count($posts));
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Home Page</title>
-    <link rel="stylesheet" href="<?php echo getUrl("/css/profile.css") ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/home.css");  ?>">
-    <title>Via Chat</title>
-    <script src="<?php echo getUrl("/js/moreOptions.js");  ?>" defer></script>
+    <title>ViaChat MeetUs</title>
 </head>
 
 <body>
@@ -98,7 +95,7 @@ $post_paginator->updateHasMore(count($posts));
             <!-- end print posts -->
              
     </div>
- 
+
     <script src="<?php echo getUrl("/js/comments.js");  ?>" defer></script>
     <script defer>
         window.addEventListener("DOMContentLoaded", e => {

@@ -19,7 +19,6 @@ $recent_messages = Message::getUserRecentMessages($me->username);
     <link rel="stylesheet" href="<?php echo getUrl("/css/main.css"); ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat.css"); ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat-recent.css"); ?>">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Chat - Recent</title>
 </head>
 

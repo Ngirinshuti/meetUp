@@ -43,7 +43,6 @@ $validator->methodPost(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="<?php echo getUrl("/css/home.css");  ?>">
-  <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Change Password</title>
 </head>
 

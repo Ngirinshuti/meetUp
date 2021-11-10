@@ -26,7 +26,22 @@ $validator->isValid(function(Validator $validator) {
     }
 
     $token = $user->createResetToken();
-    $link = "<a style='color: #4a5ce6; background:#333; padding:20px;border-radius:10px;border:1px solid #7369ee;' href='{$_SERVER['HTTP_ORIGIN']}/auth/reset_password_callback.php?token=$token'>Click to reset password</a>";
+    $url = getUrl("/auth/reset_password_callback.php?token=$token");
+    $link = "<a style='cursor: pointer;
+    border: 0;
+    background-color: #7369ee;
+    color: white;
+    text-transform: uppercase;
+    padding: 0.65rem 1rem;
+    border-radius: 5px;
+    font-weight: 500;
+    
+    transition: background-color 0.3s;
+    position: relative;
+    overflow: hidden;
+    transform: translate(10px, 10px);
+    margin: .5rem;
+    font-size: 0.9rem;' href='{$_SERVER['HTTP_ORIGIN']}$url'>Click to reset password</a>";
 
     Mail::sendReset($user->email, $link);
     
@@ -48,7 +63,6 @@ $validator->isInvalid(function(Validator $validator) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo getUrl("/css/main.css") ?>">
     <script src="<?php echo getUrl("/js/theme.js"); ?>" defer></script>
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Reset Password</title>
 </head>
 

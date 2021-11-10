@@ -25,7 +25,6 @@
 <!-- <link rel="stylesheet" href="../css/lib/w3-theme-black.css"> -->
 <?php require_once '../theme.php'; ?>
 <link rel="stylesheet" href="../css/style2.css">
-<link rel="icon" type="image" href="../assets/images/viachat.png">
 <title>Messages | <?php echo ucfirst($reciever->username); ?></title>
 <style media="screen">
   .message-wrapper{

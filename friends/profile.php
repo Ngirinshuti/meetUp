@@ -39,21 +39,20 @@ $post_paginator->updateHasMore(count($posts));
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title><?php echo ucfirst($user->username); ?> - Profile</title>
     <link rel="stylesheet" href="<?php echo getUrl("/css/profile.css") ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/home.css") ?>">
     <script src="<?php echo getUrl("/js/comments.js"); ?>" defer></script>
-    <script src="<?php echo getUrl("/js/moreOptions.js");  ?>" defer></script>
 </head>
 
 <body>
     <div class="container">
         <?php require_once __DIR__ . "/../menu/menu.php"; ?>
         <div class="profileContainer">
+            <?php if ($user->username === me()->username) : ?>
             <div data-profile-edit-modal class="profileEditModal hide">
                 <form action="" method="POST" class="mainFormContainer" enctype="multipart/form-data">
-                
+
                     <button type="button" data-pick-photo>
                         <i class="fa fa-image"></i>
                         Choose profile photo
@@ -66,14 +65,16 @@ $post_paginator->updateHasMore(count($posts));
                 </form>
                 <button type="button" data-hide-edit-modal class="danger">Cancel</button>
             </div>
+            <?php endif; ?>
             <div class="profileBg">
                 <div class="profileImg">
                     <img src="<?php echo getUrl("/images/{$user->profile_pic}"); ?>" alt="">
-                     <?php if ($user->username==$me->username):?>
+                    <?php if (me()->username === $user->username): ?>
                     <div class="profileImgEdit">
 
                         <button data-profile-edit-icon><i class="fa fa-edit"></i></button>
-                    </div><?php endif; ?>
+                    </div>
+                    <?php endif ?>
                 </div>
                 <div class="profileUserName"><?php echo $user->username; ?></div>
                 <?php echo $errors("profile_pic"); ?>
@@ -83,14 +84,12 @@ $post_paginator->updateHasMore(count($posts));
             </div>
             <div class="profileBtns">
                 <?php if ($me->username != $user->username) : ?>
-
-                <a href="#" class="btn successBtn profileBtn">
+                <a href="<?php echo getUrl("/chat/chat_room.php?user={$user->username}") ?>" class="btn successBtn profileBtn">
                     <i class="fa fa-send"></i>
                     Message
                </a>
                 <?php endif; ?>
                 <?php if ($me->username === $user->username) : ?>
-                    
                     <a href="editProfile.php" class="btn successBtn profileBtn">
                         <i class="fa fa-edit"></i>
                         Edit Profile
@@ -111,8 +110,7 @@ $post_paginator->updateHasMore(count($posts));
             </div>
 
         </div>
-        
-  <?php echo $msg(); ?>
+
         <!-- user posts -->
         <?php require_once __DIR__ . "/../post/print_posts.php"; ?>
         <!-- end user posts -->
@@ -121,7 +119,7 @@ $post_paginator->updateHasMore(count($posts));
     <template data-comment-template>
         <div class="comment">
             <div class="commentUserImg">
-                <img src="<?php echo getUrl("/images/{$user->profile_pic}");  ?>" alt="comment">
+                <img src="<?php echo getUrl("/images/");  ?>" alt="comment">
             </div>
             <div class="commentContent">
                 <span class="commentUserName"><?php echo $user->username; ?></span>
@@ -134,7 +132,6 @@ $post_paginator->updateHasMore(count($posts));
     </template>
     <!-- comment template -->
     <script src="<?php echo getUrl("/js/profile.js") ?>" defer></script>
-  
 </body>
 
 </html>

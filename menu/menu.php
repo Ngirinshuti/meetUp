@@ -25,7 +25,7 @@ function getActive($url)
 
 <nav>
     <header>
-        <a href="<?php echo $ROOT_URL; ?>" class="navLogo">VC</a>
+        <a href="<?php echo $ROOT_URL; ?>" class="navLogo">VChat</a>
         <div class="navSearch">
             <!-- <div class="navSearchInputContainer">
                 <div class="navSearchIcon"><i class="fa fa-search"></i></div> -->

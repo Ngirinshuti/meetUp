@@ -100,7 +100,6 @@ function in_members(string $username)
 
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat.css") ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat-friends.css") ?>">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Chat - Groups</title>
 </head>
 

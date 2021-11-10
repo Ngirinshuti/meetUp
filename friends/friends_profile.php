@@ -46,7 +46,6 @@ list($errors, $data, $errorClass, $mainError, $mainMsg, $csrf) = $validator->hel
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/friends.css">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Friends</title>
 </head>
 
@@ -76,8 +75,7 @@ list($errors, $data, $errorClass, $mainError, $mainMsg, $csrf) = $validator->hel
                         </div>
                         <form method="POST">
                         <div class="friendsBtns">
- <a href="<?php echo getUrl("/friends/profile.php?user={$friend->username}") ?>" class="friendName">
-                           <?php echo $friend->username; ?></a>
+                            <a href="#" class="friendName"><?php echo $friend->username; ?></a>
                                 <input type="hidden" name="friend" value="<?php echo $friend->username; ?>">
                                 <?php echo $csrf(); ?>
                                

@@ -62,7 +62,6 @@ $active_count = (new Friends($db_connection, $me->username))->activeFriendsCount
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/chat.css">
     <link rel="stylesheet" href="../css/chat-room.css">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Chat - <?php echo $user?->username . $group?->name; ?></title>
 </head>
 

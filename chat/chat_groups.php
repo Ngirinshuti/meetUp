@@ -47,7 +47,6 @@ $validator->methodPost(function (Validator $validator) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat_groups.css"); ?>">
     <link rel="stylesheet" href="<?php echo getUrl("/css/chat.css"); ?>">
-    <link rel="icon" type="image" href="../assets/images/viachat.png">
     <title>Groups</title>
 </head>
 

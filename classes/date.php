@@ -47,7 +47,7 @@ class Dates
 					$year = date_format(date_create($date), "Y");
 
 					if ($year == date("Y", $this->now)) {
-						return date("M j h:i", strtotime($date));
+						return date("M j", strtotime($date));
 					} else {
 						return date("M j, Y", strtotime($date));
 					}
@@ -60,7 +60,7 @@ class Dates
 			return (round($diff / 3600) > 1) ? round($diff / 3600) . " hrs" : "1 hr";
 		} elseif ($diff >= 86400 && $diff < (86400 * 7)) {
 			if (round($diff / 86400) == 1) {
-				return "yesterday " . date("G:i", strtotime($date));
+				return "Yesterday " . date("G:i", strtotime($date));
 				exit;
 			}
 			return  date("D, G:i", strtotime($date));
@@ -68,9 +68,9 @@ class Dates
 			$year = date_format(date_create($date), "Y");
 
 			if ($year == date("Y", $this->now)) {
-				return  date("M j, h:i", strtotime($date));
+				return  date("M j", strtotime($date));
 			} else {
-				return date("M j, h:i, Y", strtotime($date));
+				return date("M j, Y", strtotime($date));
 			}
 		}
 	}
