@@ -31,9 +31,9 @@ $validator->methodPost(
                     return new FormError("Something, went wrong! try again later ):");
                 }
 
-                $validator->setSuccessMsg("Post crearted!")->redirect(current_url());
+                $validator->setSuccessMsg("Post created!")->redirect(current_url_full());
             } catch (FormError $e) {
-                $validator->setMainError($e->getMessage());
+                $validator->setMainError($e->getMessage())->redirect(current_url_full());
             }
         }
     }

@@ -98,8 +98,6 @@ function uploadFile(
     <link rel="stylesheet" href="<?php echo getUrl("/css/create_story.css") ?>">
     <title>Create Story</title>
     <?php require_once __DIR__ . "/../lib/createEmiji.php"; ?>
-    <script src="../js/emoji.js" type="module"></script>
-
 </head>
 
 <body>
@@ -113,63 +111,61 @@ function uploadFile(
                 <?php echo !empty($msg) ? "<p class='" . (!$is_valid ? 'errorMsg' : 'successMsg') . "'>$msg</p>" : "" ?>
                 <p class="formText">Start sharing your moments and memories</p>
 
-                <label for="desc">ADD A STORY</label><br>
-
                 <form action="story_create.php" method="post" enctype="multipart/form-data">
                     <div data-video-edit-modal class="profileEditModal hide">
-                        <fieldset id="formContains" class="fieldset">
+                        <div class="pickerContainer">
                             <button type="button" data-pick-video>
                                 <i class="fa fa-file-video-o"></i>
                                 Choose video
                             </button>
-                            <fieldset style="width:9cm;border: 0px;margin-left: 3.7cm;">
-                                <input accept="video/mp4,video/webm" type="file" name="video" id="video" data-edit-video-input autoplay="true" />
-                                <div data-video-placeholder class="profilePhotoPlaceholder">
-                                </div>
-                                <div class="inputContainer">
-                                    <textarea name="descriptionVideo" class="storyCreateArea" id="desc" data-emojiable="true" data-emoji-input="unicode" id="enterText" placeholder="Add text..." style="border:20px"></textarea>
-                                </div>
-                            </fieldset><br>
-                            <button type="submit" data-edit-video-form-submit class="success">Change</button>
-                        </fieldset>
-                        <button type="button" data-hide-edit-video-modal class="danger">Cancel</button>
+                            <input accept="video/mp4,video/webm" type="file" name="video" id="video" data-edit-video-input autoplay="true" />
+                            <div data-video-placeholder class="profilePhotoPlaceholder">
+                            </div>
+                            <div class="inputContainer">
+                                <textarea name="descriptionVideo" class="storyCreateArea" id="desc" data-emojiable="true" data-emoji-input="unicode" id="enterText" placeholder="Add text..." style="border:20px"></textarea>
+                            </div>
+                            <div class="btns">
+                                <button type="submit" data-edit-video-form-submit class="success">Create</button>
+                                <button type="button" data-hide-edit-video-modal class="danger">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                     <div data-audio-edit-modal class="profileEditModal hide">
-                        <fieldset id="formContains" class="fieldset">
+                        <div class="pickerContainer">
                             <button type="button" data-pick-audio>
                                 <i class="fa fa-file-audio-o"></i>
                                 Choose Audio
                             </button>
-                            <fieldset style="width:9cm;border: 0px;margin-left: 3.7cm;">
-                                <input accept="audio/*" type="file" name="audio" id="audio" data-edit-audio-input />
-                                <div data-audio-placeholder class="profilePhotoPlaceholder">
-                                </div>
-                                <div class="inputContainer">
-                                    <textarea name="descriptionAudio" data-emojiable="true" data-emoji-input="unicode" id="enterText" class="storyCreateArea" id="desc" placeholder="Add text..." style="border:20px"></textarea>
-                                </div>
-                            </fieldset><br>
-                            <button type="submit" data-edit-audio-form-submit class="success">Change</button>
-                        </fieldset>
-                        <button type="button" data-hide-edit-audio-modal class="danger">Cancel</button>
+                            <input accept="audio/*" type="file" name="audio" id="audio" data-edit-audio-input />
+                            <div data-audio-placeholder class="profilePhotoPlaceholder">
+                            </div>
+                            <div class="inputContainer">
+                                <textarea name="descriptionAudio" data-emojiable="true" data-emoji-input="unicode" id="enterText" class="storyCreateArea" id="desc" placeholder="Add text..." style="border:20px"></textarea>
+                            </div>
+                            <div class="btns">
+                                <button type="submit" data-edit-audio-form-submit class="success">Create</button>
+                                <button type="button" data-hide-edit-audio-modal class="danger">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                     <div data-photo-edit-modal class="profileEditModal hide">
-                        <fieldset id="formContains" class="fieldset">
+                        <div class="pickerContainer">
 
                             <button type="button" data-pick-photo>
                                 <i class="fa fa-image"></i>
                                 Choose photo
                             </button>
-                            <fieldset style="width:9cm;border: 0px;margin-left: 3.7cm;">
-                                <input accept="image/*" type="file" name="image" data-edit-photo-input>
-                                <div data-photo-placeholder class="profilePhotoPlaceholder">
-                                </div>
-                                <div class="inputContainer">
-                                    <textarea name="descriptionPhoto" class="storyCreateArea" id="desc" data-emojiable="true" data-emoji-input="unicode" id="enterText" placeholder="Add text..." style="border:20px"></textarea>
-                                </div>
-                            </fieldset><br>
-                            <button type="submit" data-edit-photo-form-submit class="success">Add Story</button>
-                        </fieldset>
-                        <button type="button" data-hide-edit-photo-modal class="danger">Cancel</button>
+                            <input accept="image/*" type="file" name="image" data-edit-photo-input>
+                            <div data-photo-placeholder class="profilePhotoPlaceholder">
+                            </div>
+                            <div class="inputContainer">
+                                <textarea name="descriptionPhoto" class="storyCreateArea" id="desc" data-emojiable="true" data-emoji-input="unicode" id="enterText" placeholder="Add text..." style="border:20px"></textarea>
+                            </div>
+                            <div class="btns">
+                                <button type="submit" data-edit-photo-form-submit class="success">Add Story</button>
+                                <button type="button" data-hide-edit-photo-modal class="danger">Cancel</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="">
 
@@ -180,11 +176,9 @@ function uploadFile(
                             <button type="button" data-story-edit-icon_audio><i class="fa fa-file-audio-o fa-2x" aria-hidden="true" id="sound" title="Add Audio"></i></button>
                         </div>
                     </div>
-                    <fieldset>
-                        <div class="inputContainer">
-                            <textarea class="storyCreateArea" id="desc" name="description" placeholder="Write you story here" data-emojiable="true" data-emoji-input="unicode" style="height: 1cm;"></textarea>
-                        </div>
-                    </fieldset>
+                    <div class="inputContainer">
+                        <textarea class="storyCreateArea" id="desc" name="description" placeholder="Write you story here" data-emojiable="true" data-emoji-input="unicode" style="height: 1cm;"></textarea>
+                    </div>
                     <button type="submit">Create story</button>
                 </form>
             </div>

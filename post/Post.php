@@ -63,34 +63,27 @@ class Post
 
         return $post;
     }
-    public static function update(
-        string $post,
-        string $image = "",
-        string $video = "",
-        int $p_id
+    public function update(
+        ?string $post,
+        ?string $image = "",
+        ?string $video = "",
     ): Post {
         $sql = <<<QR
             UPDATE posts SET post=?, image=?, video=? WHERE id=? 
         QR;
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$post, $image, $video, $p_id]);
-        return Post::findOne($p_id);
+        $stmt->execute([$post ?: $this->post, $image ?: $this->image, $video ?: $this->video, $this->id]);
+
+        return Post::findOne($this->id);
     }
 
-    public function delete() {
+    public function delete()
+    {
         $sql = "DELETE FROM posts WHERE id=:id OR post_id=:id";
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id" => $this->id]);
-
-        // if ($stmt->rowCount()) {
-        //     $query2 = "DELETE FROM `posts` WHERE `post_id` = ?";
-        //     $stmt2 = DB::conn()->prepare($query2);
-        //     $stmt2->execute([$this->id]);
-        //     return $stmt2->rowCount() > 0;
-        // }
-
         return $stmt->rowCount() > 0;
     }
 
@@ -284,5 +277,24 @@ class Post
         $stmt->execute([$username, $username, $shareDate]);
         $datas = $stmt->fetchAll();
         return $datas;
+    }
+
+
+    public function shareCount(): int
+    {
+        $query = "SELECT  COUNT(id) as share_count from posts where post_id = ?";
+
+        $stmt = DB::conn()->prepare($query);
+        $stmt->execute([$this->id]);
+        return (int) $stmt->fetch()['share_count'];
+    }
+
+    public function commentCount(): int
+    {
+        $query = "SELECT COUNT(id) as comment_count from comments where post_id = ?";
+
+        $stmt = DB::conn()->prepare($query);
+        $stmt->execute([$this->id]);
+        return (int) $stmt->fetch()['comment_count'];
     }
 }

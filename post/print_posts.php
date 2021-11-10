@@ -13,7 +13,11 @@
                                 <img src="../images/<?php echo $post->owner()->profile_pic; ?>" />
                             </div>
                             <div class="userName"><?php echo $post->username; ?> </div>
-                        </a><i class="shareText">shared a post.</i>
+                        </a>
+                        <i class="shareText">shared a post</i>
+                        <i class="postTime">
+                            <?php echo $date_obj->dateDiffStr($post->date); ?>
+                        </i>
                     </p>
                     </a>
                     <?php if (!empty($post->post)) : ?>
@@ -138,9 +142,9 @@
                 </form>
                 <form action="../post/share.php" method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post->id; ?>">
-                    <button type="submit"><i class="fa fa-share"></i></button>
+                    <button type="submit"><i class="fa fa-share"></i> <?php echo $post->shareCount() ?></button>
                 </form>
-                <button data-comment-toggle class="cmtBtn"><i class="fa fa-commenting-o"></i></button>
+                <button data-comment-toggle class="cmtBtn"><i class="fa fa-commenting-o"></i> <?php echo $post->commentCount() ?></button>
             </div>
             <!-- <hr> -->
             <div data-current-user="<?php echo $me->username; ?>" data-post-id="<?php echo $post->id; ?>" class="commentContainer hide">

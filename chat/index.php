@@ -68,7 +68,11 @@ $active_friends = $friend_obj->active_friends();
                                 </div>
                                 <div class="recentChatTime"><?php echo $date_obj->dateDiffStr($msg->created_at); ?></div>
                             </div>
-                            <a class="recentChatLink" href="<?php echo getUrl("/chat/chat_room.php?user=" . ($msg->reciever === $me->username ? $msg->sender : $msg->reciever)) ?>"></a>
+                            <?php if ($msg->reciever !== null) : ?>
+                                <a class="recentChatLink" href="<?php echo getUrl("/chat/chat_room.php?user=" . ($msg->reciever === $me->username ? $msg->sender : $msg->reciever)) ?>"></a>
+                            <?php elseif($msg->group_id) : ?>
+                                <a class="recentChatLink" href="<?php echo getUrl("/chat/chat_room.php?group=" . $msg->group_id) ?>"></a>
+                            <?php endif ?>
                         </div>
                     <?php endforeach ?>
                     <template>
