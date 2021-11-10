@@ -1,0 +1,147 @@
+.profileUserAbout{
+    word-break:break-all !important; 
+}
+.profileContainer {
+    padding: 1rem;
+    background-color: var(--secondary-bg);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .25rem;
+}
+
+.profileBg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem .5rem;
+}
+
+.profileImg {
+    background-color: var(--main-bg);
+    width: 200px;
+    /* overflow: hidden; */
+    padding: .5rem;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: radial-gradient(circle, var(--accent-color), var(--secondary-bg), var(--main-bg));
+    position: relative;
+}
+
+.profileImgEdit {
+    position: absolute;
+    bottom: 0;
+    top: 70%;
+    right: 0;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.profileImgEdit button{
+    font-size: large;
+    height: 40px;
+    width: 40px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .4);;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileImg img {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    object-position: top;
+    object-fit: cover;
+    /* display: none; */
+}
+
+.profileUserName {
+    font-weight: 700;
+    font-size: x-large;
+    letter-spacing: 2px;
+    line-height: 2;
+}
+
+.profileBtns {
+    display: flex;
+    gap: .75rem;
+}
+
+/* profile edit */
+
+
+.profileEditModal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    flex-direction: column;
+}
+
+.profileEditModal.hide {
+    display: none;
+}
+
+.profileEditModal form{
+    background-color: var(--main-bg);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    justify-content: space-between;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.4);
+}
+
+.profileEditModal .profilePhotoPlaceholder {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    background-color: var(--secondary-bg);
+}
+
+.profileEditModal form button{
+    margin: .5rem 0;
+    border-radius: 1rem;
+}
+
+.profileEditModal button.danger {
+    margin-top: 0.5rem;
+    border: 2px solid white;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, .4);
+}
+
+.profileEditModal input[type="file"] {
+    display: none;
+}
+
+.profilePhotoPlaceholder img {
+    object-fit: cover;
+    object-position: top;
+    z-index: 2;
+}
+
+.profilePhotoPlaceholder {
+    position: relative;
+}
+
+.profilePhotoPlaceholder::before {
+    content: "Choose to preview";
+    white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+}

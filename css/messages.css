@@ -1,0 +1,448 @@
+		/* My Global style */
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		/* my massages wrapper style (chatBox) */
+
+		.messages-wrapper {
+			padding-top: 10px !important;
+			height: 350px;
+			margin: 3px 0;
+			scroll-behavior: initial !important;
+			display: none;
+			border-radius: 4px;
+			scroll-behavior: smooth;
+			position: relative;
+			overflow-y: auto;
+			overflow-x: hidden;
+			width: 100%;
+		}
+
+		.user-messages-wrapper,
+		.my-messages-wrapper {
+			display: flex;
+			align-items: flex-end;
+			width: 100%;
+			padding: 0;
+			justify-content: flex-start;
+		}
+
+		.my-messages-wrapper {
+			justify-content: flex-end;
+		}
+
+		.my-message-date-wrapper {
+			display: flex;
+			margin: 2px 23px;
+			justify-content: flex-end;
+		}
+
+		.user-message-date-wrapper {
+			display: flex;
+			margin: 2px 23px;
+			justify-content: flex-start;
+		}
+
+		.user-image-wrapper,
+		.my-image-wrapper {
+			width: 20px;
+			border: 1.2px solid #febaba;
+			margin: 2px;
+			height: 20px;
+			object-fit: cover;
+			object-position: top;
+		}
+
+		.my-image-wrapper {
+			margin-right: 1px !important;
+		}
+
+		.user-message-body-wrapper,
+		.my-message-body-wrapper {
+			max-width: 70%;
+			word-wrap: break-word;
+			border-radius: 20px;
+			margin-bottom: 3px;
+			padding: 6px 8px !important;
+		}
+
+		.my-bottom-message-margin {
+			border-radius: 20px 2px 20px 20px !important;
+			margin-bottom: 3px;
+		}
+
+		.user-bottom-message-margin {
+			border-radius: 2px 20px 20px 20px !important;
+			margin-bottom: 3px !important;
+			margin-left: -1px;
+		}
+
+		.my-top-message-margin {
+			margin-right: 23px;
+			margin-bottom: 3px;
+			border-radius: 20px 20px 2px 23px !important;
+		}
+
+		.user-top-message-margin {
+			margin-left: 23px;
+			margin-bottom: 3px;
+			border-radius: 20px 20px 20px 2px !important;
+		}
+
+		.my-middle-message-margin {
+			margin-right: 23px;
+			border-radius: 20px 2px 2px 20px !important;
+			margin-bottom: 3px;
+		}
+
+		.user-middle-message-margin {
+			margin-left: 23px;
+			border-radius: 2px 20px 20px 2px !important;
+			margin-bottom: 3px;
+		}
+
+		.user-message-margin {
+			margin-left: 23px;
+		}
+
+		.message-sender-wrapper form {
+			width: 100%;
+			display: none;
+			position: static;
+			bottom: 0;
+			align-items: flex-start;
+			justify-content: space-between;
+		}
+
+		.message-sender-wrapper textarea {
+			width: 100%;
+			resize: auto;
+			border-radius: 4px;
+			font-size: 13px;
+			padding: 4px;
+			border: 1px solid gray;
+		}
+
+		.message-sender-wrapper #send_message {
+			height: auto;
+			cursor: pointer;
+			color: dodgerblue !important;
+			padding: 4px 3px;
+			border: 1px solid gray;
+			border-radius: 2px;
+			margin-left: .3px;
+		}
+
+		/* active users wrapper style */
+		.active-users-wrapper {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.all-active-users-wrapper {
+			display: flex;
+			width: 100%;
+			margin: 0;
+			justify-content: flex-start;
+			align-items: center;
+			overflow-x: auto;
+			position: relative;
+			padding: 5px 14px;
+			overflow-y: hidden;
+			height: 70px;
+		}
+
+		.active-users-wrapper h4 {
+			margin: 2px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.active-user-wrapper {
+			padding: 3px 6px;
+			position: relative;
+			margin: 0 4px;
+			width: 60px;
+			cursor: pointer;
+			display: flex;
+			text-transform: capitalize;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		.active-user-image-wrapper img {
+			border: 2px solid grey;
+			object-position: top;
+			height: 30px;
+			width: 30px;
+			object-fit: cover;
+		}
+
+		.active-user-image-wrapper {
+			position: relative;
+			background: transparent !important;
+			width: 30px;
+		}
+
+		.online-users {
+			border: 3px inset transparent;
+			border-radius: 50%;
+			margin: 10px 0 !important;
+			padding: 2.3px 6px;
+			width: auto !important;
+			height: auto !important;
+			font-size: 13px;
+		}
+
+		.online-dot {
+			background: linear-gradient(orange, green, yellow);
+			padding: 6px;
+			border: 1px solid green;
+			max-width: 3px;
+			max-height: 3px;
+			font-size: 7px;
+			box-shadow: 2px 2px 10px black, 5px 10px 20px black;
+			bottom: 5%;
+			border-radius: 50%;
+			left: 70%;
+			position: absolute;
+		}
+
+		.toggle-active .fa {
+			font-size: 22px;
+			cursor: pointer;
+			padding: 0 !important;
+			cursor: pointer;
+		}
+
+		.toggle-active p {
+			margin: 1.5px 3px;
+			padding-left: 5px !important;
+		}
+
+		.toggle-active button {
+			border-width: 0;
+			background: transparent;
+			margin: 0;
+		}
+
+		.toggle-active {
+			display: flex;
+			padding: 0;
+			margin: 0;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		/* chat wrapper style */
+		.current-chat-wrapper {
+			position: relative;
+			display: none;
+			flex-direction: row;
+			padding: 2px 7px;
+			height: 60px;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 4px;
+		}
+
+		.current-chat-data {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.chat-image-wrapper {
+			height: 100%;
+			display: flex;
+			object-fit: cover;
+			background: linear-gradient(to bottom right orange, wheat, yellow);
+			position: relative;
+			align-items: center;
+			justify-content: flex-start;
+			margin-right: 12px !important;
+		}
+
+		.chat-image-wrapper img {
+			width: 37px;
+			background: linear-gradient(to top left, orange, red, wheat, yellow);
+			padding: 2px;
+			object-fit: cover;
+			object-position: center;
+			height: 37px;
+		}
+
+		#chatUser {
+			text-transform: capitalize;
+		}
+
+		.chat-toggle {
+			position: relative;
+			margin-bottom: 10px;
+			width: 100%;
+			padding: 5px;
+			display: block;
+		}
+
+		.chat-toggle .fa {
+			position: absolute;
+			right: 3px;
+			top: 0;
+			z-index: 5;
+			font-size: 25px;
+			cursor: pointer;
+			color: black;
+			padding: 0;
+		}
+
+		/* messages notification badge */
+		.message-badge {
+			position: absolute;
+			border-radius: 50%;
+			height: 15px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: bold;
+			font-size: 11px;
+			color: wheat;
+			border: 1px solid darkred;
+			padding: 7px;
+			margin: 0;
+			top: 0;
+			left: 90%;
+			width: 15px;
+			background-color: red;
+		}
+
+		/* Recent Messages */
+		.recent-messages {
+			width: 100%;
+			box-sizing: border-box;
+			border: 1.5px solid gray;
+			margin: 3px 0;
+			padding: 4px;
+		}
+
+		.recent-user-wrapper {
+			width: 100%;
+			display: flex;
+			margin: 4px 1.2px;
+			padding: 5px;
+		}
+
+		.recent-user-name {
+			text-transform: capitalize;
+		}
+
+		.recent-user-data-wrapper {
+			display: flex;
+			cursor: pointer;
+			width: 100%;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.recent-user-data-grouping {
+			display: flex;
+		}
+
+		.recent-user-additional-data {
+			padding: 0 4px;
+		}
+
+		.recent-user-time-wrapper {
+			position: relative;
+		}
+
+		.recent-user-image-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.recent-user-image-wrapper img {
+			width: 34px;
+			padding: 2px;
+			border: 1px solid teal;
+			height: 34px;
+			object-fit: cover;
+			object-position: top;
+		}
+
+		/* messages search wrapper style */
+		.messages-search-wrapper {
+			margin: 5px 0 3px 0;
+		}
+
+		.messages-search-result-wrapper img {
+			width: 30px;
+			height: 30px;
+			object-fit: cover;
+			object-position: top;
+			-o-object-fit: cover;
+			-o-object-position: top;
+		}
+
+		.messages-search-user-wrapper {
+			display: flex;
+			text-transform: capitalize;
+			margin: 0 3px !important;
+			justify-content: flex-start;
+			align-items: center;
+			padding: 0 !important;
+		}
+
+		/* new recent style */
+
+		.recent-messages {
+			display: block;
+			width: 100%;
+			margin: 0;
+			padding: 3.5px;
+		}
+
+		.recent-user {
+			position: relative;
+			display: flex;
+			width: 100%;
+			align-items: center;
+		}
+
+		.recent-user-image {
+			padding: 2px;
+		}
+
+		.recent-user-image img {
+			width: 35px;
+			height: 35px;
+			padding: 1.4px;
+			object-fit: cover;
+			object-position: top;
+			-o-object-fit: cover;
+			-o-object-position: top;
+		}
+
+		.w3-small {
+			font-size: 11px !important;
+		}
+
+		.recent-user-data {
+			padding: 0 3px;
+			display: block;
+			width: 100%;
+		}
+
+		.recent-sample {
+			display: flex;
+			padding: 0;
+			margin: 0;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+		}
