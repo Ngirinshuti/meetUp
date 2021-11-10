@@ -169,11 +169,11 @@ function nullable(string $field_name, string $rule_name, array $data)
 
 
 
-function exists(string $field_name, string $query_data, array $data)
+function exists(string $field_name, array $query_data, array $data)
 {
     $table = $query_data[0];
-    $col = isset($query_data[1]) ? $query_data[1] : "";
-    $col_value = isset($query_data[2]) ? $query_data[2] : "";
+    $col = isset($query_data[1]) ? $query_data[1] : $field_name;
+    $col_value = isset($query_data[2]) ? $query_data[2] : $data[$field_name];
 
     $query = "SELECT * FROM `$table` WHERE `$col` = ?";
     $stmt = DB::conn()->prepare($query);

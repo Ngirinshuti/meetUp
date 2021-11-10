@@ -75,19 +75,23 @@ class Post
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
         $stmt->execute([$post, $image, $video, $p_id]);
-        header("Location: ../post/home.php?msg=Post updated!");
+        return Post::findOne($p_id);
     }
-    
-    public static function delete(
-        int $p_id
-    ) {
-        $sql = <<<QR
-            DELETE FROM posts WHERE id=? or post_id=?
-        QR;
+
+    public function delete() {
+        $sql = "DELETE FROM posts WHERE id=:id OR post_id=:id";
         $conn = DB::conn();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$p_id, $p_id]);
-        header("Location: ../post/home.php?msg=Post deleted!");
+        $stmt->execute([":id" => $this->id]);
+
+        // if ($stmt->rowCount()) {
+        //     $query2 = "DELETE FROM `posts` WHERE `post_id` = ?";
+        //     $stmt2 = DB::conn()->prepare($query2);
+        //     $stmt2->execute([$this->id]);
+        //     return $stmt2->rowCount() > 0;
+        // }
+
+        return $stmt->rowCount() > 0;
     }
 
     public static function share(

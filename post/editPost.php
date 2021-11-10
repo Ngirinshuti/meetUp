@@ -20,7 +20,7 @@ $validator->methodPost(
                 "post" => ["required_without" => ["image", "video"]],
                 "image" => ['is_file' => __DIR__ . "/images"],
                 "video" => ['is_file' => __DIR__ . "/videos"],
-                 "p_id" => []
+                "p_id" => []
             ]
         )->addData($_POST)->validate();
 
@@ -32,15 +32,15 @@ $validator->methodPost(
                     return new FormError("Something, went wrong! try again later ):");
                 }
 
-                header("Location: ./home.php?msg=Post updated!");
-                exit();
+                $validator->setSuccessMsg("Post Updated!")
+                    ->redirect(getUrl("/post/home.php"));
             } catch (FormError $e) {
                 $validator->setMainError($e->getMessage());
             }
         }
     }
 );
-$pos=new Post;
+$pos = new Post;
 $posts = $pos->findOne($_GET['id']);
 ?>
 <!DOCTYPE html>
@@ -66,30 +66,29 @@ $posts = $pos->findOne($_GET['id']);
                 <div class="desc mainInput" style="margin-left:5cm;width: 10cm">
                     <label for="area">Edit your post </label>
 
-                    <textarea autofocus name="post" data-emojiable="true" data-emoji-input="unicode" class=" <?php echo $errorClass('post'); ?>" id="area" style="height: 3cm;" ><?php echo $posts->post; ?></textarea>
+                    <textarea autofocus name="post" data-emojiable="true" data-emoji-input="unicode" class=" <?php echo $errorClass('post'); ?>" id="area" style="height: 3cm;"><?php echo $posts->post; ?></textarea>
                     <div style="margin-top: -0.8cm;width: 10cm;" class="iconContainer"><i title="Add Image" class="fa fa-image fa-2x" id="icon" data-story-edit-icon_photo></i>&nbsp;&nbsp;&nbsp;<i title="Add Video" class="fa fa-file-video-o fa-2x" aria-hidden="true" id="clip"></i></div>
 
                     <?php echo $errors('post'); ?>
                 </div>
                 <div class="filesWrapper">
-                    <input data-tooltip="Post an image" class=" <?php echo $errorClass('image'); ?>" data-image-input accept="image/*" id="image" name="image" type="file" title="Picture"  style="display: none;" onchange="loadFile(event)"/>
+                    <input data-tooltip="Post an image" class=" <?php echo $errorClass('image'); ?>" data-image-input accept="image/*" id="image" name="image" type="file" title="Picture" style="display: none;" onchange="loadFile(event)" />
                     <?php echo $errors('image'); ?>
-                    <input class=" <?php echo $errorClass('video'); ?>" data-video-input accept="video/*" id="video" type="file" name="video" title="Video"  style="display: none;"
-                    onchange="loadFile(event)">
+                    <input class=" <?php echo $errorClass('video'); ?>" data-video-input accept="video/*" id="video" type="file" name="video" title="Video" style="display: none;" onchange="loadFile(event)">
                     <?php echo $errors('video'); ?>
                 </div><br>
-                 <div> <button type="submit" style="display: inline-block;max-width:3cm;height: 1.2cm;margin-left: -7cm;margin-top: 7cm;">Post Now</button>
-     <div class="display" style="float: right;width: 180px;height: 50px;margin-top: -1.2cm;">
-    <p><img id="output"  display-picture style="float: right;" title="Image you are going to post" /></p>
-    <p><video id="outputv" autoplay="true" width="250" title="Video you are going to post" ></video></p>
+                <div> <button type="submit" style="display: inline-block;max-width:3cm;height: 1.2cm;margin-left: -7cm;margin-top: 7cm;">Post Now</button>
+                    <div class="display" style="float: right;width: 180px;height: 50px;margin-top: -1.2cm;">
+                        <p><img id="output" display-picture style="float: right;" title="Image you are going to post" /></p>
+                        <p><video id="outputv" autoplay="true" width="250" title="Video you are going to post"></video></p>
                     </div>
 
-                 </div>
+                </div>
             </form>
 
         </div>
 
-             
+
     </div>
 
     <script src="<?php echo getUrl("/js/comments.js");  ?>" defer></script>
@@ -124,33 +123,31 @@ $posts = $pos->findOne($_GET['id']);
             })
         })
     </script>
-<script>
- var loadFile = function(event) {
-    var image = document.getElementById('output');
-    image.src = URL.createObjectURL(event.target.files[0]);
-      var video = document.getElementById('outputv');
-    video.src = URL.createObjectURL(event.target.files[0]);
-};
-const editButtonPhoto = document.querySelector("[data-story-edit-icon_photo]");
-const editModalPhoto= document.querySelector("[display-picture]");
-editButtonPhoto.addEventListener("click", (e) => {
-    editModalPhoto.classList.remove("hide");
-});
-
-
-
-</script>
-   <script>
-    let clip=document.getElementById("clip");
-let video=document.getElementById("video");
-let icon=document.getElementById("icon");
-let file=document.getElementById("image");
-icon.addEventListener("click",function(){
-    file.click();
-})
-clip.addEventListener("click",function(){
-    video.click();
-}) </script>
+    <script>
+        var loadFile = function(event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            var video = document.getElementById('outputv');
+            video.src = URL.createObjectURL(event.target.files[0]);
+        };
+        const editButtonPhoto = document.querySelector("[data-story-edit-icon_photo]");
+        const editModalPhoto = document.querySelector("[display-picture]");
+        editButtonPhoto.addEventListener("click", (e) => {
+            editModalPhoto.classList.remove("hide");
+        });
+    </script>
+    <script>
+        let clip = document.getElementById("clip");
+        let video = document.getElementById("video");
+        let icon = document.getElementById("icon");
+        let file = document.getElementById("image");
+        icon.addEventListener("click", function() {
+            file.click();
+        })
+        clip.addEventListener("click", function() {
+            video.click();
+        })
+    </script>
 </body>
 
 </html>

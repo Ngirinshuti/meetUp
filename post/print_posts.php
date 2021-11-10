@@ -26,16 +26,19 @@
                             </label>
                             <ul class="postOptionsContainer">
                                 <li class="postOption">
-                                    <a class="btn postOptionLink" href="<?php echo getUrl("/post/editPost.php?id={$post->id}") ?>" edit-option >
+                                    <a class="btn postOptionLink" href="<?php echo getUrl("/post/editPost.php?id={$post->id}") ?>" edit-option>
                                         <i class="fa fa-edit"></i>
                                         Edit Post
                                     </a>
                                 </li>
                                 <li class="postOption">
-                                    <a class="btn danger postOptionLink" href="<?php echo getUrl("/post/deletePost.php?id={$post->id}") ?>" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
-                                        <i class="fa fa-trash-o"></i>
-                                        Delete Post
-                                    </a>
+                                    <form style="margin: 0;" action="<?php echo getUrl("/post/deletePost.php") ?>" method="post">
+                                        <?php echo isset($validator) ? $validator->getCsrfField()() : "" ?>
+                                        <button name="id" value="<?php echo $post->id ?>" type="submit" class="danger postOptionLink" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
+                                            <i class="fa fa-trash-o"></i>
+                                            Delete Post
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>
@@ -46,7 +49,7 @@
 
             <div class="postHeader">
 
-                <?php if ($post->post_id !== null && ( $result = Post::findOne($post->post_id))) {
+                <?php if ($post->post_id !== null && ($result = Post::findOne($post->post_id))) {
                 ?>
                     <a href="<?php echo getUrl("/friends/profile.php?user={$result->username}") ?>" class="postUser">
                         <div class="userProfile">
@@ -64,8 +67,6 @@
                         <div class="userName"><?php echo $post->username; ?></div>
                     </a>
                 <?php } ?>
-
-
                 <div class="postTime">
                     <?php echo $date_obj->dateDiffStr($post->date); ?>
                 </div>
@@ -82,10 +83,13 @@
                                 </a>
                             </li>
                             <li class="postOption">
-                                <a class="btn danger postOptionLink" href="<?php echo getUrl("/post/deletePost.php?id={$post->id}") ?>" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
-                                    <i class="fa fa-trash-o"></i>
-                                    Delete Post
-                                </a>
+                                <form style="margin: 0;" action="<?php echo getUrl("/post/deletePost.php") ?>" method="post">
+                                    <?php echo isset($validator) ? $validator->getCsrfField()() : "" ?>
+                                    <button name="id" value="<?php echo $post->id ?>" type="submit" class="danger postOptionLink" onclick="return confirm('Are you sure you want to delete this post?')" delete-option>
+                                        <i class="fa fa-trash-o"></i>
+                                        Delete Post
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>
